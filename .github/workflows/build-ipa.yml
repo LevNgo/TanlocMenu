@@ -1,0 +1,20 @@
+name: Build unsigned IPA
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install xcodegen && xcodegen generate
+      - name: Build (không ký)
+        run: |
+          xcodebuild -project TanLocMenu.xcodeproj -scheme TanLocMenu -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/TanLocMenu.app Payload/
+          zip -r TanLocMenu.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TanLocMenu-ipa
+          path: TanLocMenu.ipa

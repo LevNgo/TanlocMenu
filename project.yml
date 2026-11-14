@@ -1,0 +1,38 @@
+# Sinh Xcode project bằng XcodeGen (chạy trên Mac):  brew install xcodegen && xcodegen generate
+name: TanLocMenu
+options:
+  bundleIdPrefix: com.example        # ĐỔI thành bundle prefix của bạn
+  deploymentTarget:
+    iOS: "15.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  TanLocMenu:
+    type: application
+    platform: iOS
+    sources: [TanLocMenu]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.tanlocmenu   # ĐỔI cho khớp Apple ID của bạn
+        DEVELOPMENT_TEAM: ""                                # điền Team ID của bạn
+        CODE_SIGN_STYLE: Automatic
+        TARGETED_DEVICE_FAMILY: "1"                         # chỉ iPhone
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: "Tan Loc Menu"
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIStatusBarHidden: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait"
+  TanLocMenuTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [TanLocMenuTests]
+    dependencies:
+      - target: TanLocMenu
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.tanlocmenu.tests
